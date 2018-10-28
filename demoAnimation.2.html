@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <div id="debug"></div>
+
+	<canvas id="surface" width="600" height="400"></canvas>
+	<script>
+
+
+		var ball = {
+			x : 0,
+			y : 0,
+			vx : 2,
+			vy : 3,
+			r : 10
+		}
+
+		var canvas = document.getElementById("surface");
+		var ctx = canvas.getContext('2d');
+
+		setInterval(function() {
+		    // Update ------------------------------------------
+            // ball hit bottom
+            if (ball.y + ball.r >= surface.height) {
+            	ball.vy = -1 * ball.vy;
+            }
+            // ball hit top of canvas
+            if ( ball.y - ball.r <= 0 ) {
+            	ball.vy = Math.abs( ball.vy );
+            }
+            // ball hit right of canvas
+            if (ball.x + ball.r >= surface.width) {
+            	ball.vx = -1 * ball.vx;
+            }
+            // ball hit left of canvas
+            if (ball.x - ball.r <= 0) {
+            	ball.vx = Math.abs(ball.vx);
+            }            
+            
+		    ball.x = ball.x + ball.vx;
+            ball.y = ball.y + ball.vy;
+            
+            // Draw (reDraw) -----------------------------------
+            ctx.fillStyle = "rgba(0, 0, 0, 0.2)";  // "black";
+            ctx.fillRect(0, 0, surface.width, surface.height);
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+            ctx.strokeStyle = "white";
+            ctx.stroke();
+
+		}, 1000 / 50);
+	</script>
+
+</body>
+</html>
